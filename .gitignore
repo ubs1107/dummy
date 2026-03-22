@@ -1,0 +1,6 @@
+# Compiled test binaries
+ServerBiosDriver/Test/ServerBiosDriverTest
+ServerBiosDriver/Test/*.o
+
+# EDK2 build output
+Build/

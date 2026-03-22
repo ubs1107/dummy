@@ -1,0 +1,60 @@
+## @file
+#  ServerBiosDriver.inf
+#
+#  EDK2 module description for the Server BIOS DXE Driver.
+#
+#  This DXE driver initialises server-specific platform features during the
+#  Driver Execution Environment (DXE) phase:
+#    - Hardware health monitoring (temperature, voltage, fan speed)
+#    - Platform-event logging (BIOS Event Log)
+#    - OEM ACPI table registration
+#    - UEFI variable initialisation for platform policies
+#    - IPMI KCS channel interface stubs
+#
+#  Copyright (c) 2024, Example Corporation. All rights reserved.
+#  SPDX-License-Identifier: BSD-2-Clause-Patent
+##
+
+[Defines]
+  INF_VERSION                    = 0x00010017
+  BASE_NAME                      = ServerBiosDriver
+  FILE_GUID                      = A1B2C3D4-E5F6-7890-ABCD-EF1234567890
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = ServerBiosDriverEntryPoint
+
+[Sources]
+  ServerBiosDriver.c
+  ServerBiosDriver.h
+  ServerPlatformLib/ServerPlatformLib.c
+  ServerPlatformLib/ServerPlatformLib.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiLib
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  DebugLib
+  BaseLib
+  BaseMemoryLib
+  MemoryAllocationLib
+  IoLib
+  TimerLib
+  PrintLib
+
+[Protocols]
+  gEfiAcpiTableProtocolGuid                   ## CONSUMES
+  gEfiSmbusHcProtocolGuid                     ## CONSUMES
+  gEfiVariableArchProtocolGuid                ## CONSUMES
+
+[Guids]
+  gEfiGlobalVariableGuid                      ## SOMETIMES_CONSUMES
+  gEfiHobListGuid                             ## CONSUMES
+
+[Depex]
+  gEfiAcpiTableProtocolGuid AND
+  gEfiVariableArchProtocolGuid
