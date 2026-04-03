@@ -1,0 +1,63 @@
+## @file
+#  TftpCopy - UEFI TFTP File Transfer Utility
+#
+#  Copies a file from a TFTP server (whose IPv4 address is supplied via
+#  the 'serverip' UEFI Shell environment variable) to a caller-specified
+#  physical memory address.
+#
+#  Depends on the standard EDK2 network stack (MdeModulePkg) and the
+#  UEFI Shell infrastructure (ShellPkg).
+#
+#  Copyright (c) 2024, UEFI Developer. All rights reserved.
+#  SPDX-License-Identifier: BSD-2-Clause-Patent
+##
+
+[Defines]
+  INF_VERSION                    = 0x00010006
+  BASE_NAME                      = TftpCopy
+  FILE_GUID                      = 4A5C7D9E-B123-4F56-89AB-CDEF01234567
+  MODULE_TYPE                    = UEFI_APPLICATION
+  VERSION_STRING                 = 1.0
+  #
+  # ShellCEntryLib provides the UEFI entry point that calls ShellAppMain().
+  #
+  ENTRY_POINT                    = ShellCEntryLib
+
+[Sources]
+  TftpCopy.c
+  TftpCopy.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  ShellPkg/ShellPkg.dec
+
+[LibraryClasses]
+  #
+  # Provides UefiMain -> ShellAppMain dispatch.
+  #
+  ShellCEntryLib
+
+  #
+  # Standard UEFI application libraries.
+  #
+  UefiLib
+  UefiBootServicesTableLib
+  BaseLib
+  BaseMemoryLib
+  MemoryAllocationLib
+  DebugLib
+  PrintLib
+
+  #
+  # UEFI Shell helpers: ShellGetEnvironmentVariable(), etc.
+  #
+  ShellLib
+
+[Protocols]
+  ## CONSUMED: locate NIC handles, create/destroy MTFTP4 children
+  gEfiMtftp4ServiceBindingProtocolGuid
+
+  ## CONSUMED: configure and issue ReadFile on MTFTP4 child
+  gEfiMtftp4ProtocolGuid
+
