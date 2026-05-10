@@ -1,0 +1,38 @@
+## @file
+#  SpiStorageDxe - unified storage protocol provider for SPI NOR and eMMC.
+#
+#  Copyright (c) 2026, UEFI Developer.
+#  SPDX-License-Identifier: BSD-2-Clause-Patent
+##
+
+[Defines]
+  INF_VERSION                    = 0x00010006
+  BASE_NAME                      = SpiStorageDxe
+  FILE_GUID                      = 8dfe98a5-df67-4e29-a678-335ca5792cc4
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = SpiStorageDxeEntryPoint
+
+[Sources]
+  SpiStorageDxe.c
+  SpiStorageProtocol.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiLib
+  UefiBootServicesTableLib
+  BaseLib
+  BaseMemoryLib
+  DebugLib
+  DevicePathLib
+  MemoryAllocationLib
+
+[Protocols]
+  gEfiBlockIoProtocolGuid
+  gEfiDevicePathProtocolGuid
+  gEfiDiskIoProtocolGuid
+  gEfiSpiNorFlashProtocolGuid

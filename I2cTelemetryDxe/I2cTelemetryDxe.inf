@@ -1,0 +1,36 @@
+## @file
+#  I2cTelemetryDxe - I2C telemetry driver for temperature and voltage sensors.
+#
+#  Copyright (c) 2026, UEFI Developer.
+#  SPDX-License-Identifier: BSD-2-Clause-Patent
+##
+
+[Defines]
+  INF_VERSION                    = 0x00010006
+  BASE_NAME                      = I2cTelemetryDxe
+  FILE_GUID                      = 4f4fd03e-3ef0-4441-8f22-cf62279de0f6
+  MODULE_TYPE                    = DXE_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = I2cTelemetryDxeEntryPoint
+
+[Sources]
+  I2cTelemetryDxe.c
+  I2cTelemetryProtocol.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiLib
+  UefiBootServicesTableLib
+  UefiRuntimeServicesTableLib
+  BaseLib
+  BaseMemoryLib
+  DebugLib
+  DevicePathLib
+  MemoryAllocationLib
+
+[Protocols]
+  gEfiDevicePathProtocolGuid
+  gEfiI2cIoProtocolGuid
